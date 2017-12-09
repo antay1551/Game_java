@@ -8,118 +8,39 @@ import javax.swing.*;
 
 class main9
  { public static void main(String[] args)
-  
-  { Wind www = new Wind();
-    JMenuBarTest vvv;
-   //new JMenuBarTest();
-    
-     //www.add(www1);
-    JMenuBarTest me = new JMenuBarTest();
-    //new JMenuBarTest();
-     //add(menu);
-   // JFrame.setDefaultLookAndFeelDecorated(true);
-    www.setSize(800, 800);
-       // www.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //додаємо меню
-        add(new JMenuBarTest());
-        www.setVisible(true);
-    //add(vvv = new (JMenuBarTest())); 
-    //www.setVisible(true);   
-   }
+  { new Wind();
+  }
  }
  
-
-class JMenuBarTest  
-{
-    private static final long serialVersionUID = 1L;
-    private  final  String[][]  menuFile = 
-                                {{"Файл"     ,  "Ф",  "", ""}, 
-                                 {"Открыть"  ,  "О", "O", ""},
-                                 {"Сохранить",  "С", "S", ""}};
-    private  final  String[][]  menuEdit = 
-                                {{"Редактирование" , "Р",  "", ""}, 
-                                 {"Вырезать"  , "В", "X", "images/cut.png"},
-                                 {"Копировать", "К", "C", "images/copy.png"}};
-    //--------------------------------------------------------
-    /**
-     * Функция создания выпадающего меню
-     * @param items описание меню
-     * @return JMenu выпадающее меню 
-     */
-    private JMenu createMenuItems(final String[][] items)
-    {
-        // Создание выпадающего меню
-        JMenu menu = new JMenu(items[0][0]);
-        menu.setMnemonic(items[0][1].charAt(0));
-        for (int i = 1; i < items.length; i++) {
-            // пункт меню "Открыть"
-            JMenuItem item = new JMenuItem(items[i][0]);
-            item.setMnemonic(items[i][1].charAt(0)); // русская буква
-            // установим клавишу быстрого доступа (латинская буква)
-            item.setAccelerator(KeyStroke.getKeyStroke(items[i][2].charAt(0), 
-                                          KeyEvent.CTRL_MASK));
-            if (items[i][3].length() > 0)
-                item.setIcon(new ImageIcon(items[i][3]));
-            menu.add(item);
-        }
-        return menu;
-    }
-    //--------------------------------------------------------
-    public JMenuBarTest() {
-        //super("Системное меню");
-    //    Wind www = new Wind();
-      //  www.setDefaultCloseOperation(EXIT_ON_CLOSE );
-        // создаем строку главного меню
-        JMenuBar menuBar = new JMenuBar();
-        // Создание меню "Файл"
-        menuBar.add(createMenuItems(menuFile));
-        // Создание меню "Редактирование"
-        menuBar.add(createMenuItems(menuEdit));
-
-        //menuBar.add(createSubmenus());
-
-        // JMenuBar использует блочное расположение (заполнитель вполне уместен)
-        menuBar.add(Box.createHorizontalGlue());
-        // Разместим в строке меню не выпадающее меню, а надпись со значком
-        JLabel exit = new JLabel(new ImageIcon("images/exit.png"));
-        exit.setText("Выход");
-        exit.setBorder(BorderFactory.createEtchedBorder());
-       //add(); 
-     //  menuBar.add(exit);
-
-        // поместим меню в наше окно
-         
-        //setJMenuBar(menuBar);
-         //www.setJMenuBar(menuBar);
-        // выводим окно на экран
-          //setSize(300, 200);
-        // setVisible(true);
-    }
-    //--------------------------------------------------------
-
-}
-
-
-
-
  class Wind extends Frame implements KeyListener
   { char[][] a =new char[20][30];
  int x  = 2;
  int y  = 2;
+ int bot1_x, bot1_y;
+ int bot2_x, bot2_y;
+ int bot3_x, bot3_y;
+ int bot4_x, bot4_y;
  MyPanel b;
- JMenuBarTest vvv;
-        Graphics buf; Image img;
+ TextField1 tf1;
+ TextField1 tf2;
+ Bot b1;
+ Bot b2;
+ Bot b3;
+ Bot b4;
+ Graphics buf; Image img;
+   int nom55=0;
+    
  public Wind()
    { super("Games");
+  setSize(920, 720);
+  setLocation(0, 0);
+  add(tf1=new TextField1(470,670));
+  add(tf2=new TextField1(370,670));
+  add(b1=new Bot());
+  add(b2=new Bot());
+  add(b3=new Bot());
+  add(b4=new Bot());
 
-     new JMenuBarTest();
-     //JMenuBar menuBar = new JMenuBar();
-     //add(menuBar);
-     //me.setJMenuBar(menuBar);
-     //add(vvv = new JMenuBarTest());
-   //  setJMenuBar(menuBar);
-     setSize(920, 640);
-  setLocation(50, 100);
   addWindowListener(new WindowAdapter() {
    public void windowClosing(WindowEvent we) {
     System.exit(0);
@@ -158,18 +79,21 @@ for (int i = 0; i < 20; i++)
    
    // получаем возможность отрисовки в img
  //  buf = img.getGraphics();
-  
+     
 
 
      ImageIcon im1=new ImageIcon("5st.jpg");
-
+   
+     //msg2=Integer.toString(nomurovn);
+     // tf2.setText("uroven  "+ msg2);
+ 
 
      Image img=im1.getImage();
         // g.drawImage(img,0,0,null);
 // g.drawImage(img,10,10,30,50,this); 
-
-     //g.drawImage(img,j * 30 + 10, i * 30 + 30, 30,30,this); 
-
+g.drawImage(img,j * 30 + 10, i * 30 + 30, 30,30,this);
+  
+requestFocus();
 
 //g.fillRect (    j * 30 + 10, i * 30 + 30, 30,30);
 //g.drawImage(img,10,10,30,50,this); 
@@ -193,7 +117,9 @@ for (int i = 0; i < 20; i++)
   }
 
     public void readArray()
-     { try
+     {
+      
+      try
    { Scanner sc = new Scanner(new File("level_01.txt"));
      for (int i = 0; i < 20; i++)
       { String s = sc.nextLine();
@@ -205,7 +131,43 @@ for (int i = 0; i < 20; i++)
       a[i][j] = ' ';
      // b.setLocation(x * 30 + 10, y * 30 + 30);
  b.setLocation(x * 30 + 10, y * 30 + 30);
-       }
+   setBackground(Color.YELLOW);
+      }
+      
+      if(a[i][j] == '*')
+{   nom55+=1;
+if (nom55==1)
+ {
+   b1.setLocation(i * 30 + 10, j * 30 + 30);
+   bot1_x=i;
+   bot1_y=j;
+}
+
+if (nom55==2)
+{  b2.setLocation(i * 30 + 10, j * 30 + 30);
+   bot2_x=i;
+   bot2_y=j;
+}
+if (nom55==3)
+{  b3.setLocation(i * 30 + 10, j * 30 + 30);
+   bot3_x=i;
+   bot3_y=j;
+}
+
+if (nom55==4)
+{
+   bot4_x=i;
+   bot4_y=j;
+   b4.setLocation(i * 30 + 10, j * 30 + 30);
+}
+
+}
+
+
+      
+      
+      
+      
     }
    }
      sc.close();
@@ -216,11 +178,18 @@ for (int i = 0; i < 20; i++)
   }
 
     public void movePanel(int dx, int dy)
-     { if (a[y + dy][x + dx] == ' ')
-  { x += dx;
-    y += dy;
+     { //if (a[y + dy][x + dx] == ' ')
+       if (a[x + dx][y + dy] == ' ')
+
+      { x += dx;
+        y += dy;
+    //System.out.println(a[y][x], " 1");
      }
     b.setLocation(x * 30 + 10, y * 30 + 30);
+    b1.setLocation(bot1_x* 30 + 10, bot1_y * 30 + 30);
+    b2.setLocation(bot2_x * 30 + 10, bot2_y * 30 + 30);
+    b3.setLocation(bot3_x * 30 + 10, bot3_y * 30 + 30);
+    b4.setLocation(bot4_x * 30 + 10, bot4_y * 30 + 30);
   }
 
  public void keyPressed(KeyEvent ke)
@@ -247,9 +216,40 @@ class MyPanel extends Panel
  { public MyPanel()
   { super();
     setSize(30, 30);
-    setLocation(30, 30);
+    //setLocation(10, 30);
     setBackground(Color.RED);
     setFocusable(false);
+   
   }
  }
+class TextField1 extends TextField
+{public TextField1(int x, int y)
+{super("0");
+
+//setSize(150,30);
+setSize(100,30);
+setLocation(x,y);
+//setBackground(new Color(200,200,200));
+
+        setBackground(Color.YELLOW);
+}
+}
+
+class Bot extends Panel
+{Image img2;
+
+public Bot()
+{ super();
+  setSize(30,30);
+  //setLocation(10,30);
+  ImageIcon ii2=new ImageIcon("hi.png");
+  img2=ii2.getImage();
+  setFocusable(false);
+ }
+public void paint(Graphics t)
+ { super.paint(t);
+   t.drawImage(img2,0,0,30,30,this);
+ }
+}
+
 
